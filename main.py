@@ -14,10 +14,10 @@ class Colors(Enum):
 # pygamesetup
 pygame.init()
 # defining the width and height
-size = (1920, 1080)
+size = (1920 - 200, 1080 - 50)
 # defining margin and block size
 MARGIN = 1
-BLOCK_SIZE = 24
+BLOCK_SIZE = 10
 
 
 screen = pygame.display.set_mode((0, 0), pygame.FULLSCREEN)

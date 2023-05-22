@@ -23,8 +23,41 @@ class Square:
         self.row = row
         self.h = 0
         self.g = 0
+        self.neighbors = []
 
     # getting neighbors function
+    def compute_neighbors(self, grid) -> list:
+        print(self.column, self.row)
+        # ok so we need to go to the leftoutermost top position
+        temp_col = self.column - 1
+        temp_row = self.row - 1
+        # we start the loop in temp_col and temp_row respectively
+        for i in range(temp_col, temp_col + 3):
+            for j in range(temp_row, temp_row + 3):
+                if (i, j) == (self.column, self.row):
+                    pass
+                else:
+                    try:
+                        # so it append elements in this direction top-left,left,bottom-left,bottom,bottom-right,right,top-righ
+                        if not grid[i][j].is_barrier():
+                            self.neighbors.append(grid[i][j])
+                        else:
+                            self.neighbors.append(None)
+
+                    except:
+                        self.neighbors.append(None)
+
+    def euclidean_distance(self, goal: tuple) -> float:
+        if goal[0]:
+            return ((self.column - goal[0]) ** 2 + (self.row - goal[1]) ** 2) ** (
+                1 / 2
+            ) * 10
+
+    def change_color(self):
+        self.color = Colors.visited
+
+    def is_barrier(self):
+        return self.color.name == "barrier"
 
     # str rep
     def __str__(self):

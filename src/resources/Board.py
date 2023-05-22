@@ -35,7 +35,10 @@ class Board:
         self.rows = (self.size[1] + self.margin) // block_size
         self.columns = (self.size[0] + self.margin) // block_size
 
-        self.grid = [[Square()] * self.columns for j in range(self.rows)]
+        self.grid = [
+            [Square(column=i, row=j) for i in range(self.columns)]
+            for j in range(self.rows)
+        ]
         self.screen = screen
 
         self.goal = (None, None)
@@ -69,10 +72,17 @@ class Board:
     def make_barrier(self, column: int, row: int) -> None:
         self.grid[column][row] = Square(color=Colors.barrier, column=column, row=row)
         # it also tries to check neighbors...
+        #
+        # obtainig rigth element
+        self.grid[column][row].compute_neighbors(self.grid)
+        print(self.grid[column][row].euclidean_distance(self.goal))
+        self.grid[column][row].change_color()
+        print(self.grid[column][row].neighbors)
 
     def make_goal(self, column: int, row: int) -> None:
         self.grid[column][row] = Square(color=Colors.goal, column=column, row=row)
-        self.goal = (row, column)
+        self.goal = (column, row)
+
         print(f"hacemos azul el punto {column,row}")
 
     def make_empty(self, column: int, row: int) -> None:
