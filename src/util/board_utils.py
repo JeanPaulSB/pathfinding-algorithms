@@ -11,8 +11,8 @@ to the board or maze grid and make the corresponding changes
 
 
 def get_square(pos: tuple, margin: float, block_size=int) -> tuple:
-    row, column = pos[0] // (block_size + margin), pos[1] // (block_size + margin)
-    return (row, column)
+    column, row = pos[0] // (block_size + margin), pos[1] // (block_size + margin)
+    return (column, row)
 
 
 def a_star():

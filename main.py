@@ -25,7 +25,7 @@ clock = pygame.time.Clock()
 running = True
 
 maze = Board.Board(50, 20, size, screen, MARGIN, BLOCK_SIZE)
-maze.assign_pos()
+
 
 while running:
     # poll for events
@@ -35,20 +35,23 @@ while running:
             running = False
         if event.type == pygame.MOUSEBUTTONDOWN:
             pos = pygame.mouse.get_pos()
-            row, column = board_utils.get_square(pos, MARGIN, BLOCK_SIZE)
-            maze.make_barrier(column, row)
+            column, row = board_utils.get_square(pos, MARGIN, BLOCK_SIZE)
+            maze.make_barrier(row, column)
+
+            print(row, column)
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_g:
                 # making square goal
                 # TODO: ensure that just one goal exist per maze
                 pos = pygame.mouse.get_pos()
-                row, column = board_utils.get_square(pos, MARGIN, BLOCK_SIZE)
-                maze.make_goal(column, row)
+                column, row = board_utils.get_square(pos, MARGIN, BLOCK_SIZE)
+                maze.make_goal(row, column)
+
             if event.key == pygame.K_d:
                 # deleting current square and leaving it white
                 pos = pygame.mouse.get_pos()
-                row, column = board_utils.get_square(pos, MARGIN, BLOCK_SIZE)
-                maze.make_empty(column, row)
+                column, row = board_utils.get_square(pos, MARGIN, BLOCK_SIZE)
+                maze.make_empty(row, column)
     screen.fill("black")
     maze.draw()
 

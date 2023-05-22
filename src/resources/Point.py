@@ -59,6 +59,18 @@ class Square:
     def is_barrier(self):
         return self.color.name == "barrier"
 
+    def make_barrier(self):
+        self.color = Colors.barrier
+
+    def make_goal(self):
+        self.color = Colors.goal
+
+    def make_empty(self):
+        self.color = Colors.empty
+
+    def make_path(self):
+        self.color = Colors.path
+
     # str rep
     def __str__(self):
         return str(self.color)

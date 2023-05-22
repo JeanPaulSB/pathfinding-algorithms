@@ -63,28 +63,33 @@ class Board:
                 )
 
     # assign actual pos for each square in the grid, since at this point they're just "blind" tiles or square
+    # TODO: not needed
     def assign_pos(self):
         for i in range(0, self.rows):
             for j in range(0, self.columns):
-                self.grid[i][j].row = i
+                self.grid[i][j].row = j
                 self.grid[i][j].column = i
 
-    def make_barrier(self, column: int, row: int) -> None:
-        self.grid[column][row] = Square(color=Colors.barrier, column=column, row=row)
+    def make_barrier(self, row: int, column: int) -> None:
+        self.grid[row][column].make_barrier()
+        print(
+            f"{row,column}elem pos: {self.grid[column][row].column} {self.grid[column][row].row}"
+        )
+
+        """
         # it also tries to check neighbors...
-        #
+
         # obtainig rigth element
+        # NOTE: misc functions
         self.grid[column][row].compute_neighbors(self.grid)
+        """
         print(self.grid[column][row].euclidean_distance(self.goal))
-        self.grid[column][row].change_color()
         print(self.grid[column][row].neighbors)
 
-    def make_goal(self, column: int, row: int) -> None:
-        self.grid[column][row] = Square(color=Colors.goal, column=column, row=row)
-        self.goal = (column, row)
+    def make_goal(self, row: int, column: int) -> None:
+        self.grid[row][column].make_goal()
+        self.goal = (row, column)
 
-        print(f"hacemos azul el punto {column,row}")
-
-    def make_empty(self, column: int, row: int) -> None:
-        self.grid[column][row] = Square(color=Colors.empty, column=column, row=row)
+    def make_empty(self, row: int, column: int) -> None:
+        self.grid[row][column] = Square(color=Colors.empty, column=column, row=row)
         print(f"hacemos blanco el punto {row,column}")
