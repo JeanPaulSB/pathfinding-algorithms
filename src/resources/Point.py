@@ -3,11 +3,12 @@ from typing import Optional
 
 
 class Colors(Enum):
-    barrier = (0, 0, 0)
-    visited = (0, 255, 0)
-    empty = (255, 255, 255)
-    path = (255, 69, 0)
-    goal = (0, 0, 255)
+    barrier = (0, 0, 0)  # black
+    visited = (0, 255, 0)  # green
+    empty = (255, 255, 255)  # white
+    path = (255, 69, 0)  # ?
+    goal = (0, 0, 255)  # blue
+    start = (255, 0, 0)
 
 
 class Square:
@@ -47,11 +48,23 @@ class Square:
                     except:
                         self.neighbors.append(None)
 
-    def euclidean_distance(self, goal: tuple) -> float:
-        if goal[0]:
-            return ((self.column - goal[0]) ** 2 + (self.row - goal[1]) ** 2) ** (
+    def euclidean_distance(self, square: tuple) -> float:
+        # TODO: ensure that goal actually exists
+        if square[0]:
+            return ((self.column - square[0]) ** 2 + (self.row - square[1]) ** 2) ** (
                 1 / 2
             ) * 10
+
+    def manhattan_distance(self, goal: tuple) -> float:
+        # TODO: ensure that goal actually exists
+        if goal[0]:
+            return abs(self.column - goal[0]) + abs(self.row - goal[1])
+
+    # returns h(n) + g(n)
+    def compute_fscore(self, goal, start) -> float:
+        self.h = self.euclidean_distance(goal)
+        self.g = self.euclidean_distance(start)
+        return (self.h, self.g)
 
     def change_color(self):
         self.color = Colors.visited
@@ -70,6 +83,9 @@ class Square:
 
     def make_path(self):
         self.color = Colors.path
+
+    def make_start(self):
+        self.color = Colors.start
 
     # str rep
     def __str__(self):

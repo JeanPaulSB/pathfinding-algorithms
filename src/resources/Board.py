@@ -42,6 +42,7 @@ class Board:
         self.screen = screen
 
         self.goal = (None, None)
+        self.start = (None, None)
 
     """
     Draws the board in pygame.
@@ -70,6 +71,13 @@ class Board:
                 self.grid[i][j].row = j
                 self.grid[i][j].column = i
 
+    # returns the fscore for the specified square or tile
+    def get_score(self, row: int, column: int) -> None:
+        print(self.grid[column][row].euclidean_distance(self.start))
+        print(self.grid[column][row].euclidean_distance(self.goal))
+        print(f"accessed {(row,column)}")
+        # print(self.grid[row][column].compute_fscore(self.goal, self.start))
+
     def make_barrier(self, row: int, column: int) -> None:
         self.grid[row][column].make_barrier()
         print(
@@ -81,8 +89,9 @@ class Board:
 
         # obtainig rigth element
         # NOTE: misc functions
-        self.grid[column][row].compute_neighbors(self.grid)
         """
+        self.grid[column][row].compute_neighbors(self.grid)
+
         print(self.grid[column][row].euclidean_distance(self.goal))
         print(self.grid[column][row].neighbors)
 
@@ -90,6 +99,11 @@ class Board:
         self.grid[row][column].make_goal()
         self.goal = (row, column)
 
+    def make_start(self, row: int, column: int) -> None:
+        self.grid[row][column].make_start()
+        self.start = (row, column)
+
     def make_empty(self, row: int, column: int) -> None:
+        # TODO: modify
         self.grid[row][column] = Square(color=Colors.empty, column=column, row=row)
         print(f"hacemos blanco el punto {row,column}")

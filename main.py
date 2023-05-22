@@ -52,6 +52,18 @@ while running:
                 pos = pygame.mouse.get_pos()
                 column, row = board_utils.get_square(pos, MARGIN, BLOCK_SIZE)
                 maze.make_empty(row, column)
+
+            if event.key == pygame.K_s:
+                pos = pygame.mouse.get_pos()
+                column, row = board_utils.get_square(pos, MARGIN, BLOCK_SIZE)
+                maze.make_start(row, column)
+            if event.key == pygame.K_i:
+                # getting heuristic info
+                pos = pygame.mouse.get_pos()
+                column, row = board_utils.get_square(pos, MARGIN, BLOCK_SIZE)
+                maze.get_score(row, column)
+                print("pressed i ")
+
     screen.fill("black")
     maze.draw()
 
