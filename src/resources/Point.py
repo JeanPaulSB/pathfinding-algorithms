@@ -27,14 +27,15 @@ class Square:
         self.neighbors = []
 
     # getting neighbors function
+    # NOTE: some weird bug...
     def compute_neighbors(self, grid) -> list:
-        print(self.column, self.row)
+        print(f"compute_neighbor pos : {self.column, self.row}")
         # ok so we need to go to the leftoutermost top position
         temp_col = self.column - 1
         temp_row = self.row - 1
         # we start the loop in temp_col and temp_row respectively
-        for i in range(temp_col, temp_col + 3):
-            for j in range(temp_row, temp_row + 3):
+        for i in range(temp_row, temp_row + 3):
+            for j in range(temp_col, temp_col + 3):
                 if (i, j) == (self.column, self.row):
                     pass
                 else:

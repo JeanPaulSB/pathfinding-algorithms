@@ -80,9 +80,6 @@ class Board:
 
     def make_barrier(self, row: int, column: int) -> None:
         self.grid[row][column].make_barrier()
-        print(
-            f"{row,column}elem pos: {self.grid[column][row].column} {self.grid[column][row].row}"
-        )
 
         """
         # it also tries to check neighbors...
@@ -90,10 +87,11 @@ class Board:
         # obtainig rigth element
         # NOTE: misc functions
         """
-        self.grid[column][row].compute_neighbors(self.grid)
+        self.grid[row][column].compute_neighbors(self.grid)
+        print(row, column)
 
-        print(self.grid[column][row].euclidean_distance(self.goal))
-        print(self.grid[column][row].neighbors)
+        print(self.grid[row][column].euclidean_distance(self.goal))
+        print(self.grid[row][column].neighbors)
 
     def make_goal(self, row: int, column: int) -> None:
         self.grid[row][column].make_goal()
