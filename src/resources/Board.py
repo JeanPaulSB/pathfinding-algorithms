@@ -73,8 +73,8 @@ class Board:
 
     # returns the fscore for the specified square or tile
     def get_score(self, row: int, column: int) -> None:
-        print(self.grid[column][row].euclidean_distance(self.start))
-        print(self.grid[column][row].euclidean_distance(self.goal))
+        print(self.grid[row][column].euclidean_distance(self.start))
+        print(self.grid[row][column].euclidean_distance(self.goal))
         print(f"accessed {(row,column)}")
         # print(self.grid[row][column].compute_fscore(self.goal, self.start))
 

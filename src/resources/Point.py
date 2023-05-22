@@ -51,10 +51,13 @@ class Square:
 
     def euclidean_distance(self, square: tuple) -> float:
         # TODO: ensure that goal actually exists
+        # NOTE: returning an int and normalizing the distance by multiplying it for 10
         if square[0]:
-            return ((self.column - square[0]) ** 2 + (self.row - square[1]) ** 2) ** (
-                1 / 2
-            ) * 10
+            return int(
+                ((self.row - square[0]) ** 2 + (self.column - square[1]) ** 2)
+                ** (1 / 2)
+                * 10
+            )
 
     def manhattan_distance(self, goal: tuple) -> float:
         # TODO: ensure that goal actually exists
