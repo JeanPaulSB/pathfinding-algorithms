@@ -15,5 +15,11 @@ def get_square(pos: tuple, margin: float, block_size=int) -> tuple:
     return (column, row)
 
 
-def a_star():
-    pass
+def get_lowest_fcost(open_nodes: list):
+    lowest = 5000000
+    node_lowest = None
+    for node in open_nodes:
+        f_cost = node.f
+        if f_cost < lowest:
+            f_cost = lowest
+            node_lowest = node

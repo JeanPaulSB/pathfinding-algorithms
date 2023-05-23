@@ -93,15 +93,32 @@ class Board:
         print(self.grid[row][column].euclidean_distance(self.goal))
         print(self.grid[row][column].neighbors)
 
-    def make_goal(self, row: int, column: int) -> None:
+    def make_goal(self, row: int, column: int, a_star) -> None:
         self.grid[row][column].make_goal()
         self.goal = (row, column)
+        a_star.goal = self.grid[row][column]
+        a_star.color_origin()
 
-    def make_start(self, row: int, column: int) -> None:
+    def make_start(self, row: int, column: int, a_star) -> None:
         self.grid[row][column].make_start()
         self.start = (row, column)
+        a_star.start = self.grid[row][column]
 
     def make_empty(self, row: int, column: int) -> None:
         # TODO: modify
         self.grid[row][column] = Square(color=Colors.empty, column=column, row=row)
         print(f"hacemos blanco el punto {row,column}")
+
+    """
+    if goal and start are setted, they return the corresponding square object
+    """
+
+    def get_start(self) -> Square:
+        if self.start != (None, None):
+            (row, column) = self.start
+            return self.grid[row][column]
+
+    def get_goal(self) -> Square:
+        if self.start != (None, None):
+            (row, column) = self.goal
+            return self.grid[row][column]

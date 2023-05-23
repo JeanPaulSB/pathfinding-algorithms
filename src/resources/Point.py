@@ -24,7 +24,9 @@ class Square:
         self.row = row
         self.h = 0
         self.g = 0
+        self.f = 0
         self.neighbors = []
+        self.parent = None
 
     # getting neighbors function
     # NOTE: some weird bug...
@@ -34,20 +36,21 @@ class Square:
         temp_col = self.column - 1
         temp_row = self.row - 1
         # we start the loop in temp_col and temp_row respectively
+        temp_neighbors = []
         for i in range(temp_row, temp_row + 3):
             for j in range(temp_col, temp_col + 3):
-                if (i, j) == (self.column, self.row):
+                if (i, j) == (self.row, self.column):
                     pass
                 else:
                     try:
                         # so it append elements in this direction top-left,left,bottom-left,bottom,bottom-right,right,top-righ
-                        if not grid[i][j].is_barrier():
-                            self.neighbors.append(grid[i][j])
-                        else:
-                            self.neighbors.append(None)
 
+                        temp_neighbors.append(grid[i][j])
                     except:
-                        self.neighbors.append(None)
+                        temp_neighbors.append(None)
+
+        self.neighbors = temp_neighbors
+        return self.neighbors
 
     def euclidean_distance(self, square: tuple) -> float:
         # TODO: ensure that goal actually exists
@@ -64,11 +67,8 @@ class Square:
         if goal[0]:
             return abs(self.column - goal[0]) + abs(self.row - goal[1])
 
-    # returns h(n) + g(n)
-    def compute_fscore(self, goal, start) -> float:
-        self.h = self.euclidean_distance(goal)
-        self.g = self.euclidean_distance(start)
-        return (self.h, self.g)
+    def get_pos(self):
+        return (self.row, self.column)
 
     def change_color(self):
         self.color = Colors.visited
@@ -97,3 +97,6 @@ class Square:
 
     def __repr__(self) -> str:
         return self.color.name
+
+    def __eq__(self, other):
+        return self.get_pos() == other.get_pos()
