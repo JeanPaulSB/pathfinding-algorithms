@@ -23,3 +23,12 @@ def get_lowest_fcost(open_nodes: list):
         if f_cost < lowest:
             f_cost = lowest
             node_lowest = node
+
+
+def euclidean_distance(start: tuple, end: tuple) -> float:
+    # TODO: ensure that goal actually exists
+    # NOTE: returning an int and normalizing the distance by multiplying it for 10
+
+    return int(
+        ((start.row - end.row) ** 2 + (start.column - end.column) ** 2) ** (1 / 2) * 10
+    )

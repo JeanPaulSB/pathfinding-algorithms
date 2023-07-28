@@ -30,13 +30,13 @@ class Square:
 
     # getting neighbors function
     # NOTE: some weird bug...
-    def compute_neighbors(self, grid) -> list:
-        print(f"compute_neighbor pos : {self.column, self.row}")
+    def compute_neighbors(self, maze) -> list:
         # ok so we need to go to the leftoutermost top position
         temp_col = self.column - 1
         temp_row = self.row - 1
         # we start the loop in temp_col and temp_row respectively
         temp_neighbors = []
+        print("about to compute")
         for i in range(temp_row, temp_row + 3):
             for j in range(temp_col, temp_col + 3):
                 if (i, j) == (self.row, self.column):
@@ -45,22 +45,13 @@ class Square:
                     try:
                         # so it append elements in this direction top-left,left,bottom-left,bottom,bottom-right,right,top-righ
 
-                        temp_neighbors.append(grid[i][j])
-                    except:
-                        temp_neighbors.append(None)
+                        temp_neighbors.append(maze.grid[i][j])
+
+                    except Exception as e:
+                        print(str(e))
 
         self.neighbors = temp_neighbors
         return self.neighbors
-
-    def euclidean_distance(self, square: tuple) -> float:
-        # TODO: ensure that goal actually exists
-        # NOTE: returning an int and normalizing the distance by multiplying it for 10
-        if square[0]:
-            return int(
-                ((self.row - square[0]) ** 2 + (self.column - square[1]) ** 2)
-                ** (1 / 2)
-                * 10
-            )
 
     def manhattan_distance(self, goal: tuple) -> float:
         # TODO: ensure that goal actually exists
